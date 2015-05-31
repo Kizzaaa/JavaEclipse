@@ -1,4 +1,4 @@
-package com.kizzaa.javaeclipse.client;
+package com.kizzaa.javaeclipse.server.sClasses;
 
 public class resNews {
 

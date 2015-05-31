@@ -2,6 +2,8 @@ package com.kizzaa.javaeclipse.client;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -60,6 +62,11 @@ public class registerMenu extends BasicGameState{
 
 	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 		
+		if(Menu.registered){
+			Menu.registered = false;
+			sbg.enterState(mainClient.loginMenu);
+		}
+		
 		int posX = Mouse.getX();
 		int posY = 600 - Mouse.getY();
 		
@@ -71,7 +78,12 @@ public class registerMenu extends BasicGameState{
 				} catch (IOException e) { e.printStackTrace(); }
 			}
 			if(posX > 415 && posX < 465 && posY > 420 && posY < 440){
-				//sConnection.login(userFld.getText(), passFld.getText());
+				if(passFld.getText().equals(confPassFld.getText())){
+					sConnection.register(userFld.getText(), passFld.getText());
+					JOptionPane.showMessageDialog(null, "Registering now", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null, "Passwords do not match", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}
 				//sbg.enterState(0);
 			}
 		}

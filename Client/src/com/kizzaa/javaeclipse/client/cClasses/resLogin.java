@@ -1,4 +1,4 @@
-package com.kizzaa.javaeclipse.server;
+package com.kizzaa.javaeclipse.client.cClasses;
 
 public class resLogin {
 

@@ -2,6 +2,8 @@ package com.kizzaa.javaeclipse.client;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -66,6 +68,7 @@ public class loginMenu extends BasicGameState{
 			}
 			if(posX > 415 && posX < 465 && posY > 400 && posY < 420){
 				sConnection.login(userFld.getText(), passFld.getText());
+				JOptionPane.showMessageDialog(null, "attempting to log in...", "Information", JOptionPane.INFORMATION_MESSAGE);
 				//sbg.enterState(0);
 			}
 		}

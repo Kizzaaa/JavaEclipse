@@ -29,6 +29,8 @@ public class Menu extends BasicGameState {
 	
 	public static String[] sNews = new String[11];
 	
+	public static Boolean registered = false;
+	
 	public Menu(){
 		
 	}

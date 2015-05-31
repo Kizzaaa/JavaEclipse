@@ -1,4 +1,4 @@
-package com.kizzaa.javaeclipse.client;
+package com.kizzaa.javaeclipse.client.cClasses;
 
 public class reqLogin {
 	

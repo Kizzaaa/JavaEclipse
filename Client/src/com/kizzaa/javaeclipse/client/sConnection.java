@@ -3,10 +3,13 @@ package com.kizzaa.javaeclipse.client;
 import java.io.IOException;
 import java.security.MessageDigest;
 
+import javax.swing.JOptionPane;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.kizzaa.javaeclipse.client.cClasses.*;
 
 public class sConnection {
 	
@@ -33,6 +36,8 @@ public class sConnection {
 	    Kryo kryo = client.getKryo();
 	    kryo.register(reqLogin.class);
 	    kryo.register(resLogin.class);
+	    kryo.register(reqRegister.class);
+	    kryo.register(resRegister.class);
 	    kryo.register(resNews.class);
 	    kryo.register(String[].class);
 	    
@@ -60,10 +65,36 @@ public class sConnection {
 	        public void received (Connection connection, Object object) {
 	           if (object instanceof resLogin) {
 	        	   resLogin response = (resLogin)object;
-	              System.out.println(response.success);
+	        	   if(response.success){
+	        		   JOptionPane.showMessageDialog(null, "Login Successful", "Information", JOptionPane.INFORMATION_MESSAGE);
+	        	   }else{
+	        		   JOptionPane.showMessageDialog(null, "Could not log in", "Information", JOptionPane.INFORMATION_MESSAGE);
+	        	   }
 	           }
 	        }
 	     });
+	}
+	
+	public static void register(String username, String password) {
+		reqRegister request = new reqRegister();
+		request.username = username;
+		request.password = sha256(password);
+		
+		client.sendTCP(request);
+		
+		client.addListener(new Listener(){
+			public void received(Connection connection, Object object){
+				if (object instanceof resRegister) {
+					resRegister response = (resRegister)object;
+					if(response.success){
+						Menu.registered = true;
+						JOptionPane.showMessageDialog(null, "Registration Successful", "Information", JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "Could not register.", "Information", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}
+		});
 	}
 	
 	
